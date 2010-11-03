@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php');
 	setlocale(LC_MONETARY,"pt_BR", "ptb");
 	global $wpdb;
 
-	if($_GET['reload'] == 'true'){
+	if($_POST['reload'] == 'true'){
 		$option_name = 'mn_ajax_reload' ; 
 		$newvalue = 'false' ;
 		  if ( get_option($option_name)  != $newvalue) {
