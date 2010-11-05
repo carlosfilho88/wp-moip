@@ -78,8 +78,14 @@ require_once('../../../wp-includes/wp-db.php');
 			<br class="clear" />
 		</div>
 		
-		<?php function convertStatusPagamento($status){
-			$statusArray = array( "0" => "Conclu&iacute;do" , "1" => "Em an&aacute;lise" , "2" => "Autorizado", 
-									"3" => "Iniciado", "4" => "Cancelado" , "5" => "Boleto Impresso" , "6" => "Estornado");
-			return $statusArray[$status];
-		}
+<?php 
+function convertStatusPagamento($status){
+	$statusArray = array( "1" => "Autorizado" , 
+        	              "2" => "Iniciado", 
+			      "3" => "Boleto Impresso", 
+                              "4" => "Conclu&iacute;do" , 
+	                      "5" => "Cancelado" , 
+        	              "6" => "Em An&aacute;lise");
+	return $statusArray[$status];
+}
+?>

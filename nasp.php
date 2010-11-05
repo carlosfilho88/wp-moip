@@ -1,7 +1,7 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-config.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php');
+require_once('../../../wp-config.php');
+require_once('../../../wp-includes/wp-db.php');
 
 if (!defined( 'MN_TABLE' ) )
 	define(MN_TABLE, "mn_payments");
