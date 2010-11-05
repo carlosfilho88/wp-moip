@@ -51,7 +51,9 @@ require_once('../../../wp-includes/wp-db.php');
 				<th scope="col"><?php _e("Status pagamento"); ?></th>
 				<!--<th scope="col"><?php //_e('Forma pagamento'); ?></th>-->
 				<th scope="col"><?php _e('Tipo pagamento'); ?></th>
+				<th scope="col"><?php _e('Forma de Pagamento'). ?></th>
 				<th scope="col"><?php _e('Email consumidor'); ?></th>
+				
 			  </tr>
 			</thead>
 			
@@ -64,6 +66,7 @@ require_once('../../../wp-includes/wp-db.php');
 					<td><?php echo(convertStatusPagamento($show->status_pagamento)); ?></td>
 					<!--<td><?php //echo($show->forma_pagamento); ?></td>-->
 					<td><?php echo(preg_replace('/([a-z0-9])([A-Z])/','$1 $2',$show->tipo_pagamento)); ?></td>
+					<td><?php echo($show->forma_pagamento) ?></td>
 					<td><?php echo($show->email_consumidor); ?></td>
 				</tr>
 				<?php } ?>
@@ -88,4 +91,5 @@ function convertStatusPagamento($status){
         	              "6" => "Em An&aacute;lise");
 	return $statusArray[$status];
 }
+
 ?>
