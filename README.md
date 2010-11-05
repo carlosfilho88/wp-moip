@@ -7,6 +7,7 @@ Instalação
 ----------
 
 A instalção não tem segredos:
+
 1. [Baixe a última versão do plugin](https://github.com/herberthamaral/wp-moip/zipball/master).
 2. Faça login no painel administrativo e vá em **Plugins** >> **Adicionar novo** >> **Fazer Upload**
 3. Envie o plugin que você baixou no passo 1 e ative-o logo em seguir.
