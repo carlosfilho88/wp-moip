@@ -1,6 +1,10 @@
 <?php 
 require_once('../../../wp-config.php');
 require_once('../../../wp-includes/wp-db.php');
+require_once('../../../wp-includes/pluggable.php');
+
+if(!is_user_logged_in())
+	die('You must be logged in to perform this action');
 
 	setlocale(LC_MONETARY,"pt_BR", "ptb");
 	global $wpdb;
