@@ -30,7 +30,7 @@ register_deactivation_hook(__FILE__, 'mn_uninstall');
 	
 	function mn_add_men_pg() {
          if (function_exists('add_menu_page')){
-            add_menu_page('MoIP', 'MoIP', 8, __FILE__, 'mn_opt_mng_page', WP_PLUGIN_URL . '/wp-moip/images/favicon.ico');
+            add_menu_page('MoIP', 'MoIP', 8, __FILE__, 'mn_opt_mng_page');
 			add_submenu_page(__FILE__, 'Support', 'Support', 8, __FILE__, 'mn_opt_mng_page');
 			add_submenu_page(__FILE__, 'Shopping Cart', 'Shopping Cart', 8, 'wp_shopping_cart', 'ps_wp_cart_options');
             add_submenu_page(__FILE__, 'General Settings', 'Settings', 8, 'settings', 'mn_settings');
