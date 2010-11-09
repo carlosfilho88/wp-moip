@@ -33,7 +33,7 @@ if ($_POST['addcart']) {
         $product = array('name' => stripslashes($_POST['product']), 'valor' => $valor, 'quantity' => $count, 'cartLink' => $_POST['cartLink'], 'item_number' => $_POST['item_number']);
         array_push($products, $product);
     }
-	
+    
     sort($products);
     $_SESSION['pssimpleCart'] = $products;
 }
@@ -49,7 +49,7 @@ else if ($_POST['cquantity']) {
         else if (($item['name'] == $_POST['product']) && !$_POST['quantity'])
             unset($products[$key]);
     }
-	
+    
     sort($products);
     $_SESSION['pssimpleCart'] = $products;
 }
@@ -77,24 +77,24 @@ function ps_cart_not_empty() {
 }
 
 function ps_print_wp_shopping_cart() {
-	if (!ps_cart_not_empty()) {
-		return;
-	}
+    if (!ps_cart_not_empty()) {
+        return;
+    }
 
     $email = get_bloginfo('admin_email');
     $defaultEmail = get_option('cart_moip_email');
     $moip_symbol = 'R$';
-	
+    
 
-	$url_images = get_bloginfo('wpurl')."/wp-content/plugins/wp-moip/images/";
+    $url_images = get_bloginfo('wpurl')."/wp-content/plugins/wp-moip/images/";
 
    if (!empty($defaultEmail))
         $email = $defaultEmail;
     $decimal = '.';
-	$urls = '';
-	$title = get_option('wp_cart_title');
+    $urls = '';
+    $title = get_option('wp_cart_title');
 
-	if (empty($title)) $title = 'Suas compras';
+    if (empty($title)) $title = 'Suas compras';
 
     $output .= '<div class="shopping_cart" style=" padding: 5px;">';
     $output .= "<input type='image' src='".get_bloginfo('wpurl')."/wp-content/plugins/wordpress-carrinho-moip/images/moip_checkout.png' value='Carrinho' title='Carrinho' />";
@@ -102,7 +102,7 @@ function ps_print_wp_shopping_cart() {
     $output .= $title;
     $output .= "</h2>";
     $output .= "<br /><span id='pinfo' class='msg_alent' style='display: none; font-weight: bold;'><img src='".get_bloginfo('wpurl')."/wp-content/plugins/wordpress-carrinho-moip/images/info.png' />Pressione ENTER para atualizar a quantidade.</span>";
-	$output .= '<table style="width: 100%;" border="0">';
+    $output .= '<table style="width: 100%;" border="0">';
 
     $count = 1;
     $total_items = 0;
@@ -145,27 +145,27 @@ function ps_print_wp_shopping_cart() {
         $count++;
     }
     }
-       	$count--;
-       	if ($count) {
-       		$output .= '<tr><td></td><td></td><td></td></tr>';
-       		$output .= "
-       		<tr><td colspan='2' style='font-weight: bold; text-align: right;'>Total: </td><td style='text-align: center'>".ps_print_payment_currency(($total), $moip_symbol, $decimal)."</td><td></td></tr>
-       		<tr><td colspan='4'>";
+        $count--;
+        if ($count) {
+            $output .= '<tr><td></td><td></td><td></td></tr>';
+            $output .= "
+            <tr><td colspan='2' style='font-weight: bold; text-align: right;'>Total: </td><td style='text-align: center'>".ps_print_payment_currency(($total), $moip_symbol, $decimal)."</td><td></td></tr>
+            <tr><td colspan='4'>";
 
-				$url = get_option('mn_check_sandbox') == 1 ? "https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do" : "https://www.moip.com.br/PagamentoMoIP.do";
-              	$output .= "<form action=\"$url\" target=\"moip\" method=\"post\">$form";
-    			if ($count)
-            		$output .= '<input type="image" class="wp_cart_button" src="https://www.moip.com.br/imgs/buttons/bt_pagar_c01_e04.png" name="submit" alt="MoIP" />';
-    			$output .= $urls.'
-			    <input type="hidden" name="id_carteira" value="'.get_option("mn_moip_email").'" />
-			    </form>';
-       	}
+                $url = get_option('mn_check_sandbox') == 1 ? "https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do" : "https://www.moip.com.br/PagamentoMoIP.do";
+                $output .= "<form action=\"$url\" target=\"moip\" method=\"post\">$form";
+                if ($count)
+                    $output .= '<input type="image" class="wp_cart_button" src="https://www.moip.com.br/imgs/buttons/bt_pagar_c01_e04.png" name="submit" alt="MoIP" />';
+                $output .= $urls.'
+                <input type="hidden" name="id_carteira" value="'.get_option("mn_moip_email").'" />
+                </form>';
+        }
 
-       	$output .= "
-       	</td></tr>
-    	</table></div>
-    	";	
-	return $output;
+        $output .= "
+        </td></tr>
+        </table></div>
+        ";  
+    return $output;
 }
 
 
@@ -224,13 +224,13 @@ function ps_cart_current_page_url() {
 }
 
 function ps_shopping_cart_show($content) {
-	if (strpos($content, "<!--ativar_carrinho_MoIP-->") !== FALSE)     {
-    	if (ps_cart_not_empty()) {
-        	$content = preg_replace('/<p>\s*<!--(.*)-->\s*<\/p>/i', "<!--$1-->", $content);
-        	$matchingText = '<!--ativar_carrinho_MoIP-->';
-        	$replacementText = ps_print_wp_shopping_cart();
-        	$content = str_replace($matchingText, $replacementText, $content);
-    	}
+    if (strpos($content, "<!--ativar_carrinho_MoIP-->") !== FALSE)     {
+        if (ps_cart_not_empty()) {
+            $content = preg_replace('/<p>\s*<!--(.*)-->\s*<\/p>/i', "<!--$1-->", $content);
+            $matchingText = '<!--ativar_carrinho_MoIP-->';
+            $replacementText = ps_print_wp_shopping_cart();
+            $content = str_replace($matchingText, $replacementText, $content);
+        }
     }
     return $content;
 }
@@ -244,15 +244,15 @@ function ps_wp_cart_options() {
 
 function ps_show_ps_wp_cart_options_page () {
 
-	$wp_simple_moip_shopping_cart_version = 1.1;
+    $wp_simple_moip_shopping_cart_version = 1.1;
     $addcart = get_option('addToCartButtonName');
     if (empty($addcart)) $addcart = 'Adicionar ao Carrinho';
-	$title = get_option('wp_cart_title');
-	if (empty($title)) $title = 'Suas compras';
+    $title = get_option('wp_cart_title');
+    if (empty($title)) $title = 'Suas compras';
 
-	?>
- 	<h2>Opcoes do Carrinho Simples WordPress MoIP v <?php echo $wp_simple_moip_shopping_cart_version; ?></h2>
- 	<p>Para se informar sobre suporte, por favor, visite:<br />
+    ?>
+    <h2>Opcoes do Carrinho Simples WordPress MoIP v <?php echo $wp_simple_moip_shopping_cart_version; ?></h2>
+    <p>Para se informar sobre suporte, por favor, visite:<br />
     <a href="http://www.andrewebmaster.com.br/internet/?p=206">http://www.andrewebmaster.com.br/internet/?p=206</a></p>
     <fieldset class="options">
     <legend>Como usar:</legend>
@@ -262,8 +262,8 @@ function ps_show_ps_wp_cart_options_page () {
     <hr>
     3-Para adicionar um botao 'Adicionar ao Carrinho' simplesmente insira o texto Exemplo:<strong>[moip=Camisa-verde-(M):valor=45.00:end]</strong> ao artigo ou pagina, proximo ao produto. Substitua NOME-DO-PRODUTO e VALOR-DO-PRODUTO pelo nome e valor reais, Exemplo: [moip=Camisa-verde-(M):valor=45.00:end].</p>
     <hr>
-	<p>4- Para adicionar o carrinho de compras a um artigo ou pagina de checkout ou a um  sidebar simplesmente adicione o texto <strong> <!--ativar_carrinho_MoIP--> </strong> a um post, pagina ou sidebar. O carrinho sera visivel quando o comprador adicionar pelo menos um produto.
-	<hr>
+    <p>4- Para adicionar o carrinho de compras a um artigo ou pagina de checkout ou a um  sidebar simplesmente adicione o texto <strong> <!--ativar_carrinho_MoIP--> </strong> a um post, pagina ou sidebar. O carrinho sera visivel quando o comprador adicionar pelo menos um produto.
+    <hr>
     </fieldset>
     - Ficariamos agradecidos pela sua doacao para melhorias deste plugin:
     em:<a href="http://www.andrewebmaster.com.br/doar" title="Doa��es Plugin" target="_blank"><img src="https://www.moip.com.br/imgs/buttons/bt_doar_c03_e01.png" border="0"></a>
@@ -277,30 +277,30 @@ function ps_show_ps_wp_cart_options_page () {
            Para Baixar Plugin que inseri apenas <b>ShortCode [doarmoip] </b>Botao para Doar com MOIP <b><a href="http://www.andrewebmaster.com.br/internet/?p=1046" title="Bot�o Doar Moip" target="_blank">Clique Aqui...</a></b>
      <?php
     echo '
-		 <form method="post" action="options.php">';
-		 wp_nonce_field('update-options');
-		 
-	echo '
-		<table class="form-table">
-		<tr valign="top">
-		<th scope="row">Título do carrinho de compras</th>
-		<td><input type="text" name="wp_cart_title" value="'.$title.'"  /></td>
-		</tr>
+         <form method="post" action="options.php">';
+         wp_nonce_field('update-options');
+         
+    echo '
+        <table class="form-table">
+        <tr valign="top">
+        <th scope="row">Título do carrinho de compras</th>
+        <td><input type="text" name="wp_cart_title" value="'.$title.'"  /></td>
+        </tr>
 
-		<tr valign="top">
-		<th scope="row">Texto do botão de adicionar ao carrinho</th>
-		<td><input type="text" name="addToCartButtonName" value="'.$addcart.'" /></td>
-		</tr>
-		<input type="hidden" name="mn_moip_email" value="'.get_option('mn_moip_email').'"  />
-		</table>
+        <tr valign="top">
+        <th scope="row">Texto do botão de adicionar ao carrinho</th>
+        <td><input type="text" name="addToCartButtonName" value="'.$addcart.'" /></td>
+        </tr>
+        <input type="hidden" name="mn_moip_email" value="'.get_option('mn_moip_email').'"  />
+        </table>
 
-		<p class="submit">
-		<input type="submit" name="Submit" value="Salvar Opções &raquo;" />
-		<input type="hidden" name="action" value="update" />
-		<input type="hidden" name="page_options" value="cart_payment_currency,cart_currency_symbol,mn_moip_email,addToCartButtonName,wp_cart_title" />
-		</p>
+        <p class="submit">
+        <input type="submit" name="Submit" value="Salvar Opções &raquo;" />
+        <input type="hidden" name="action" value="update" />
+        <input type="hidden" name="page_options" value="cart_payment_currency,cart_currency_symbol,mn_moip_email,addToCartButtonName,wp_cart_title" />
+        </p>
 
-		</form>';
+        </form>';
 }
 
 // Display The Options Page
@@ -315,4 +315,4 @@ function wp_moip_shopping_cart_widget_control() {
     <? _e("Configure as opções do plugin no menu de opções."); ?>
     </p>
     <?php
-}
+} ?>
